@@ -1,2 +1,25 @@
+require 'pry'
 class Activity
+  attr_reader :activity_name
+  attr_accessor :participants
+
+
+
+  def initialize(activity_name, participants)
+    @activity_name= activity_name
+    @participants = participants
+  end
+
+  def total_cost(activity_name)
+    costs = @participants.values
+    sum = 0
+      costs.each do |cost|
+        sum += cost
+     end
+     sum
+  end
+
+
+
+
 end
