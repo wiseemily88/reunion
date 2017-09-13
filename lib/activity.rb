@@ -19,7 +19,15 @@ class Activity
      sum
   end
 
+  def split(activity_name)
+    number_of_people = @participants.length
+    total_cost(activity_name)/ number_of_people
+  end
 
-
+  def owes(activity_name, person)
+    split_value = split(activity_name)
+    person_value = @participants[person]
+    split_value - person_value
+  end
 
 end

@@ -7,7 +7,6 @@ class ActivityTest < Minitest::Test
 
  def test_an_instance_of_activity_exists
    activity = Activity.new("Bowling", {'Molly' => 10, 'Peter' => 20, 'Sam' => 0})
-
    assert_instance_of Activity, activity
  end
 
@@ -25,22 +24,32 @@ class ActivityTest < Minitest::Test
 
   def test_an_particpants_return_value_owed_by_participant
     activity = Activity.new("Bowling", {"Molly" => 10, "Peter" => 20, "Sam" => 0})
-
     assert_equal 10, activity.participants["Molly"]
   end
 
   def test_total_cost_returns_total_cost_of_an_activity
     activity = Activity.new("Bowling", {"Molly" => 10, "Peter" => 20, "Sam" => 0})
-
     assert_equal 30, activity.total_cost("Bowling")
   end
 
-  
+  def test_split_divides_total_cost_by_participants
+    activity = Activity.new("Bowling", {"Molly" => 10, "Peter" => 20, "Sam" => 0})
+    assert_equal 10, activity.split("Bowling")
+  end
 
-  Add to the Activity class so that it supports the following functionality. Note, it is assumed that the cost of each activity is split evenly between all participants.
+  def test_owes_returns_difference_for_split_cost
+    activity = Activity.new("Bowling", {"Molly" => 10, "Peter" => 20, "Sam" => 0})
+    assert_equal 0, activity.owes("Bowling","Molly")
+  end
 
-You can split the cost of an activity
-You can find out how much each person is owed/owes
-If a participant paid less than their fair share they owe a positive amount.
-If a participant paid more than their fair share they owe a negative amount (meaning they are owed money).
+  def test_owes_returns_difference_for_split_cost_test_negative
+    activity = Activity.new("Bowling", {"Molly" => 10, "Peter" => 20, "Sam" => 0})
+    assert_equal -10, activity.owes("Bowling","Peter")
+  end
+
+  def test_owes_returns_difference_for_split_cost_test_positive
+    activity = Activity.new("Bowling", {"Molly" => 10, "Peter" => 20, "Sam" => 0})
+    assert_equal 10, activity.owes("Bowling","Sam")
+  end
+
 end
